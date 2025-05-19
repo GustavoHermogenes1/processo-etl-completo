@@ -8,11 +8,13 @@ db_url = f"mysql+pymysql://{senhas.user}:{senhas.password}@{senhas.host}:{senhas
 # Cria engine e testa conexão
 engine = sql.create_engine(db_url)
 
-# Testa to_sql
-df_completo.to_sql('localidades', engine, if_exists='replace', index=False)
-df_municipios.to_sql('municipios', engine, if_exists='replace', index=False)
-df_regioes.to_sql('regioes', engine, if_exists='replace', index=False)
-df_uf.to_sql('uf', engine, if_exists='replace', index=False)
+try:
+    df_completo.to_sql('localidades', engine, if_exists='replace', index=False)
+    df_municipios.to_sql('municipios', engine, if_exists='replace', index=False)
+    df_regioes.to_sql('regioes', engine, if_exists='replace', index=False)
+    df_uf.to_sql('uf', engine, if_exists='replace', index=False)
+    
+    print("Tabela criada com sucesso.")
 
-
-print("Tabela criada com sucesso.")
+except Exception as e:
+    print(f'Erro: {e}')
